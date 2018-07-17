@@ -59,7 +59,8 @@ public class VendorControllerTest extends AbstractRestControllerTest {
         when(vendorService.getAllVendors()).thenReturn(vendors);
 
         mockMvc.perform(get("/api/v1/vendors/")
-                .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.vendors", hasSize(2)));
     }
@@ -72,7 +73,8 @@ public class VendorControllerTest extends AbstractRestControllerTest {
         when(vendorService.getVendorById(anyLong())).thenReturn(vendor1);
 
         mockMvc.perform(get("/api/v1/vendors/1")
-                .contentType(MediaType.APPLICATION_JSON))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", equalTo(NAME)));
     }
@@ -92,6 +94,7 @@ public class VendorControllerTest extends AbstractRestControllerTest {
         //when/then
         mockMvc.perform(post("/api/v1/vendors/")
                 .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
                 .content(asJsonString(vendor)))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.name", equalTo("NewVendor")))
@@ -113,6 +116,7 @@ public class VendorControllerTest extends AbstractRestControllerTest {
         //when/then
         mockMvc.perform(put("/api/v1/vendors/1")
                 .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
                 .content(asJsonString(vendor)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", equalTo("UpdateVendor")))
@@ -134,6 +138,7 @@ public class VendorControllerTest extends AbstractRestControllerTest {
 
         mockMvc.perform(patch("/api/v1/vendors/1")
                 .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
                 .content(asJsonString(vendor)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name", equalTo("PatchVendor")))
